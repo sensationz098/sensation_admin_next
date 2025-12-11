@@ -1,62 +1,54 @@
 "use client";
 
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { formatDate } from "@/lib/utils";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+import Link from "next/link";
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
-import Link from "next/link";
 
-export type Teacher = {
+export type CounsellorType = {
   id: string;
+  name: string;
+  gender: string;
+  employee_id: string;
+  contact: string;
+  incentive: number;
   status: boolean;
-  createdAt: string | Date;
-  gender: "MALE" | "FEMALE";
-  full_name: string;
+  createdAt: string;
 };
 
-export const teacherColumn: ColumnDef<Teacher>[] = [
+export const counsellorColumn: ColumnDef<CounsellorType>[] = [
   {
-    accessorKey: "id",
-    header: "ID",
-    cell: ({ row }) => {
-      return <span>{row.index + 1}</span>;
-    },
+    accessorKey: "name",
+    header: "Name",
   },
   {
-    accessorKey: "full_name",
-    header: "Full Name",
+    accessorKey: "employee_id",
+    header: "Employee ID",
+  },
+  {
+    accessorKey: "contact",
+    header: "Contact",
   },
   {
     accessorKey: "gender",
     header: "Gender",
   },
   {
+    accessorKey: "incentive",
+    header: "Incentive",
+  },
+  {
     accessorKey: "status",
     header: "Status",
-    cell: ({ getValue }) => {
-      const value = getValue();
-
-      return value ? "Active" : "Inactive";
-    },
+    cell: ({ row }) => (row.original.status ? "Active" : "Inactive"),
   },
   {
     accessorKey: "createdAt",
-    header: "Created At",
-    cell: ({ getValue }) => {
-      const value = getValue();
-      return formatDate(value as string);
-    },
+    header: "Joined",
+    cell: ({ row }) => new Date(row.original.createdAt).toDateString(),
   },
-
-  {
+   {
     id: "actions",
     header:"Action",
     cell: ({ row }) => {
@@ -73,10 +65,10 @@ export const teacherColumn: ColumnDef<Teacher>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem asChild>
-              <Link href={`/admin/dashboard/teachers/view/${id}`}>View Details</Link>
+              <Link href={`/admin/dashboard/counsellors/view/${id}`}>View Details</Link>
             </DropdownMenuItem>
             {/* <DropdownMenuItem asChild>
-              <Link href={`/admin/dashboard/teachers/update/${id}`}>Update Details</Link>
+              <Link href={`/admin/dashboard/students/update/${id}`}>Update Details</Link>
             </DropdownMenuItem> */}
             <DropdownMenuSeparator />
             <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>

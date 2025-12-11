@@ -58,6 +58,89 @@ const CATEGORIES = [
   { value: "Crash", label: "Crash" },
 ];
 
+// const TEACHERS = [
+//   { value: "anu", label: "anu" },
+//   { value: "aakanksha singh", label: "aakanksha singh" },
+//   { value: "abhijit", label: "abhijit" },
+//   { value: "abhishek", label: "abhishek" },
+//   { value: "aditi vyas", label: "aditi vyas" },
+
+//   { value: "akshita yadav", label: "akshita yadav" },
+//   { value: "aman chhari", label: "aman chhari" },
+//   { value: "ankur", label: "ankur" },
+
+//   { value: "anshika yadav", label: "anshika yadav" },
+//   { value: "anusha", label: "anusha" },
+//   { value: "arti gupta", label: "arti gupta" },
+//   { value: "archna", label: "archna" },
+//   { value: "ashwani sharma", label: "ashwani sharma" },
+//   { value: "bhumi thapa", label: "bhumi thapa" },
+//   { value: "deepanshi", label: "deepanshi" },
+//   { value: "divya", label: "divya" },
+//   { value: "dhriti jain", label: "dhriti jain" },
+//   { value: "garima daiya", label: "garima daiya" },
+//   { value: "geeta", label: "geeta" },
+//   { value: "gresi gurung", label: "gresi gurung" },
+//   { value: "jagriti", label: "jagriti" },
+//   { value: "lokesh", label: "lokesh" },
+//   { value: "kishan", label: "kishan" },
+//   { value: "khushi", label: "khushi" },
+//   { value: "krishna", label: "krishna" },
+//   { value: "kritika", label: "kritika" },
+//   { value: "madhuri", label: "madhuri" },
+//   { value: "madhumita mahesh", label: "madhumita mahesh" },
+//   { value: "manpreet kumar", label: "manpreet kumar" },
+//   { value: "mansi pal", label: "mansi pal" },
+//   { value: "megha rajawat", label: "megha rajawat" },
+//   { value: "monika", label: "monika" },
+//   { value: "mradula khandelwal", label: "mradula khandelwal" },
+//   { value: "nandini", label: "nandini" },
+//   { value: "navjot", label: "navjot" },
+//   { value: "neha", label: "neha" },
+//   { value: "nisha", label: "nisha" },
+//   { value: "nikita", label: "nikita" },
+//   { value: "nidhi bala", label: "nidhi bala" },
+
+//   { value: "paras", label: "paras" },
+//   { value: "parul", label: "parul" },
+//   { value: "poonam kumari", label: "poonam kumari" },
+//   { value: "prachi khare", label: "prachi khare" },
+//   { value: "prakriti", label: "prakriti" },
+//   { value: "preeti sharma", label: "preeti sharma" },
+//   { value: "priya mathur", label: "priya mathur" },
+//   { value: "priyanshi", label: "priyanshi" },
+//   { value: "prerna", label: "prerna" },
+//   { value: "rahul", label: "rahul" },
+//   { value: "rajeev", label: "rajeev" },
+//   { value: "rashmi", label: "rashmi" },
+//   { value: "ranjini", label: "ranjini" },
+//   { value: "reetu", label: "reetu" },
+//   { value: "rishab bari", label: "rishab bari" },
+
+//   { value: "ritu bajaj", label: "ritu bajaj" },
+//   { value: "ritu karmakar", label: "ritu karmakar" },
+//   { value: "ritu kumari", label: "ritu kumari" },
+//   { value: "ruchita", label: "ruchita" },
+//   { value: "surbhi", label: "surbhi" },
+//   { value: "satyam magu", label: "satyam magu" },
+//   { value: "shaanu", label: "shaanu" },
+//   { value: "sherin", label: "sherin" },
+//   { value: "shreya", label: "shreya" },
+//   { value: "shikha tomar", label: "shikha tomar" },
+//   { value: "shweta", label: "shweta" },
+//   { value: "sneha maurya", label: "sneha maurya" },
+//   { value: "sonali dhote", label: "sonali dhote" },
+//   { value: "suman lata", label: "suman lata" },
+//   { value: "suraj", label: "suraj" },
+//   { value: "swati", label: "swati" },
+//   { value: "vashnavi", label: "vashnavi" },
+//   { value: "vasudha", label: "vasudha" },
+//   { value: "vibha mittal", label: "vibha mittal" },
+//   { value: "yaman", label: "yaman" },
+//   { value: "yashobanti", label: "yashobanti" },
+// ];
+
+
 const AddCourseForm = () => {
   const queryClient = useQueryClient();
 
@@ -71,7 +154,7 @@ const AddCourseForm = () => {
       if (res?.status) {
         toast.success(res.message);
       } else {
-        toast.error(res.error || "Something went wrong");
+        toast.error(res?.error ?  `${res?.error} ` : "Unknow error");
       }
     },
   });
@@ -84,13 +167,14 @@ const AddCourseForm = () => {
       category: "",
       days: [],
       image_url: "",
+      mrp:"",
+      discount:"",
       recommended: false,
       status: true,
     },
   });
 
   async function onSubmit(data: AddCourseFormSchemaType) {
-    console.log(data);
     await mutateAsync(data);
   }
 
@@ -161,6 +245,47 @@ const AddCourseForm = () => {
                   </Field>
                 )}
               />
+
+
+
+      {/* Teacher
+              <Controller
+                name="teacher"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="teacher">
+                      Teacher <span className="text-red-500">*</span>
+                    </FieldLabel>
+                    <Select
+                      name={field.name}
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    >
+                      <SelectTrigger
+                        id="teacher"
+                        aria-invalid={fieldState.invalid}
+                      >
+                        <SelectValue placeholder="Select teacher" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {TEACHERS.map((teacher) => (
+                          <SelectItem
+                            key={teacher.value}
+                            value={teacher.value}
+                          >
+                            {teacher.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              /> */}
+
 
               {/* Category */}
               <Controller
@@ -265,6 +390,58 @@ const AddCourseForm = () => {
                   </Field>
                 )}
               />
+
+              {/* MRP */}
+<Controller
+  name="mrp"
+  control={form.control}
+  render={({ field, fieldState }) => (
+    <Field data-invalid={fieldState.invalid}>
+      <FieldLabel htmlFor="course-mrp">
+        MRP <span className="text-red-500">*</span>
+      </FieldLabel>
+      <Input
+        {...field}
+        id="course-mrp"
+        type="number"
+        min="0"
+        aria-invalid={fieldState.invalid}
+        placeholder="Enter course MRP"
+        autoComplete="off"
+      />
+      {fieldState.invalid && (
+        <FieldError errors={[fieldState.error]} />
+      )}
+    </Field>
+  )}
+/>
+
+{/* Discount */}
+<Controller
+  name="discount"
+  control={form.control}
+  render={({ field, fieldState }) => (
+    <Field data-invalid={fieldState.invalid}>
+      <FieldLabel htmlFor="course-discount">
+        Discount (%)
+      </FieldLabel>
+      <Input
+        {...field}
+        id="course-discount"
+        type="number"
+        min="0"
+        max="100"
+        aria-invalid={fieldState.invalid}
+        placeholder="Enter discount percent"
+        autoComplete="off"
+      />
+      {fieldState.invalid && (
+        <FieldError errors={[fieldState.error]} />
+      )}
+    </Field>
+  )}
+/>
+
 
               {/* Recommended */}
               <Controller

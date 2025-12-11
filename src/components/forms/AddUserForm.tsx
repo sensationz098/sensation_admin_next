@@ -67,7 +67,6 @@ const AddUserForm = () => {
   });
 
   async function onSubmit(data: AddUserFormSchemaType) {
-    console.log(data);
     await mutateAsync(data);
     toast.success("User added successfully");
   }
