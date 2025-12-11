@@ -5,7 +5,7 @@ type AdminHeaderType = {
   url: string;
 };
 
-const AdminHeader = () => {
+const Header = () => {
   const headerLinks: AdminHeaderType[] = [
     {
       title: "Dashboard",
@@ -42,4 +42,4 @@ const AdminHeader = () => {
   );
 };
 
-export default AdminHeader;
+export default Header;
