@@ -19,6 +19,8 @@ export function AppSidebar() {
           { href: "/admin/dashboard/activeBatches", label: "Active Batches" },
           { href: "/admin/dashboard/transactions", label: "Transactions" },
           { href: "/admin/dashboard/transactionCoupon", label: "Transaction Coupon" },
+          { href: "/admin/dashboard/tickets", label: "Tickets" },
+
       
       
 
