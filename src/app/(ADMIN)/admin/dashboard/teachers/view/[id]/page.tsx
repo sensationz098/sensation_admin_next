@@ -1,6 +1,6 @@
 "use client"
 
-import CreateTeacherModal from "@/components/admin/AddTeacherForm";
+import CreateTeacherModal from "@/components/forms/AddTeacherForm";
 import ProfileCard, { FieldConfig } from "@/components/common/ProfileCard";
 import { ReactQueryServerProvider } from "@/context/ReactQueryServer";
 import { getTeacherDetailsById } from "@/server/serverApi";

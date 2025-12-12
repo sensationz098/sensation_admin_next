@@ -1,5 +1,5 @@
-import AddCounsellorForm from "@/components/admin/AddCounsellorForm";
-import AddTeacherForm from "@/components/admin/AddTeacherForm";
+import AddCounsellorForm from "@/components/forms/AddCounsellorForm";
+import AddTeacherForm from "@/components/forms/AddTeacherForm";
 import DashboardCharts from "@/components/admin/DashboardCharts";
 import StatsCard from "@/components/admin/StatsCard";
 import AddCourseForm from "@/components/forms/AddCourseForm";

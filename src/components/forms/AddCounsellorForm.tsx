@@ -20,6 +20,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddCounsellorFormSchema, AddCounsellorFormSchemaType } from "@/schema/zod-schema";
 import { toast } from "sonner";
+import { Switch } from "../ui/switch";
 
 export default function AddCounsellorForm() {
   const queryClient = useQueryClient();
@@ -134,7 +135,34 @@ export default function AddCounsellorForm() {
               )}
             />
 
-            {/* Incentive */}
+
+
+            
+                          {/* Status */}
+                          <Controller
+                            name="status"
+                            control={form.control}
+                            render={({ field }) => (
+                              <Field>
+                                <div className="flex items-center justify-between">
+                                  <div className="space-y-0.5">
+                                    <FieldLabel>Active Status</FieldLabel>
+                                    <p className="text-xs text-muted-foreground">
+                                      Make this Counsellor visible to students
+                                    </p>
+                                  </div>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </div>
+                              </Field>
+                            )}
+                            />
+
+
+
+             {/* Incentive */}
             <Controller
               name="incentive"
               control={form.control}
